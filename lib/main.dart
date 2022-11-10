@@ -1,7 +1,6 @@
 import 'package:blocapp/withBloc/bloc/image_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import 'withBloc/home_bloc.dart';
 
 void main() {
