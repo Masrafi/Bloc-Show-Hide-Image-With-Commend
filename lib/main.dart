@@ -1,14 +1,17 @@
-import 'package:blocapp/bloc/image_bloc.dart';
-import 'package:blocapp/home.dart';
+import 'package:blocapp/withBloc/bloc/image_bloc.dart';
+import 'package:blocapp/withCubit/cubit/image_cubit.dart';
+import 'package:blocapp/withCubit/home_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'withBloc/home_bloc.dart';
+
 void main() {
-  runApp(const MyApp());
+  runApp(const MyAppCubit());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class MyAppBloc extends StatelessWidget {
+  const MyAppBloc({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -17,6 +20,21 @@ class MyApp extends StatelessWidget {
       create: (_) => ImageBloc(),
       child: const MaterialApp(
         home: HomeScreen(),
+      ),
+    );
+  }
+}
+
+class MyAppCubit extends StatelessWidget {
+  const MyAppCubit({Key? key}) : super(key: key);
+
+  // This widget is the root of your application.
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (_) => ImageCubit(),
+      child: const MaterialApp(
+        home: HomeScreenCubit(),
       ),
     );
   }

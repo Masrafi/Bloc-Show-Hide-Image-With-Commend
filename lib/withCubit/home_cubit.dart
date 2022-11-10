@@ -1,17 +1,15 @@
-import 'package:blocapp/bloc/image_bloc.dart';
-import 'package:blocapp/bloc/image_event.dart';
-import 'package:blocapp/bloc/image_state.dart';
+import 'package:blocapp/withCubit/cubit/image_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class HomeScreen extends StatefulWidget {
-  const HomeScreen({Key? key}) : super(key: key);
+class HomeScreenCubit extends StatefulWidget {
+  const HomeScreenCubit({Key? key}) : super(key: key);
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomeScreenCubit> createState() => _HomeScreenCubitState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeScreenCubitState extends State<HomeScreenCubit> {
   var textController = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -29,8 +27,15 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
             ElevatedButton(
               onPressed: () {
-                BlocProvider.of<ImageBloc>(context)
-                    .add(ImageAddEvent(textAdd: textController.text));
+                if (textController.text == "Add") {
+                  BlocProvider.of<ImageCubit>(context)
+                      .showImage(textController.text);
+                }
+                if (textController.text == "Remove") {
+                  BlocProvider.of<ImageCubit>(context)
+                      .hideImage(textController.text);
+                }
+
                 textController.clear();
               },
               child: const Text("Submit"),
@@ -38,12 +43,13 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 50,
             ),
-            BlocBuilder<ImageBloc, ImageState>(builder: (context, state) {
-              if (state is ImageRemoveSate) {
-                return const Center(child: Text("Image is hide"));
-              }
-              if (state is ImageAddState) {
+            BlocBuilder<ImageCubit, String>(builder: (context, state) {
+              if (state == "Add") {
                 return Image.asset('assets/mas.jpeg');
+              }
+
+              if (state == "Remove") {
+                return Center(child: Text("Image is hide"));
               }
               return Container();
             }),

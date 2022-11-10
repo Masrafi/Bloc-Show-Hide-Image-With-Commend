@@ -1,6 +1,7 @@
-import 'package:blocapp/bloc/image_event.dart';
-import 'package:blocapp/bloc/image_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
+import 'image_event.dart';
+import 'image_state.dart';
 
 class ImageBloc extends Bloc<ImageEvent, ImageState> {
   ImageBloc() : super(ImageAddState()) {
